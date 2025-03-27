@@ -18,7 +18,8 @@ Current version: **0.6.4**
 Simply include the `perftimer` header file in your project:
 
 ```cpp
-#include "perftimer.h"
+#include <perftimer/perftimer.hpp>
+```
 
 ## Usage
 
