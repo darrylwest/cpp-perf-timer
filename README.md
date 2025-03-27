@@ -24,22 +24,39 @@ Simply include the `perftimer` header file in your project:
 
 ### Creating a timer
 
+```cpp
+perftimer::PerfTimer timer("My Timer");
+```
 
 ### Starting the timer
 
+```cpp
+timer.start();
+```
 
 ### Stopping the timer
 
+```cpp
+timer.stop();
+```
 
 ### Getting the Duration
 
+```cpp
+auto duration = timer.get_duration();
+```
 
 ### Showing the Duration
 
+```cpp
+timer.show_duration();
+```
 
 ### Logging Comments
 
-
+```cpp
+timer.log << "this is my log statement.\n";
+```
 
 ## Example
 
