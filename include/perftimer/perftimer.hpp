@@ -13,7 +13,7 @@
 
 namespace perftimer {
     // Version of the performance timer library
-    constexpr auto VERSION = "0.7.1";
+    constexpr auto VERSION = "0.7.2";
 
     // Type alias for high-resolution clock and time point
     using Clock = std::chrono::high_resolution_clock;
@@ -65,14 +65,11 @@ namespace perftimer {
 
             // Output the duration in appropriate units
             if (dur.count() > billions) {
-                buffer << name << message << std::setprecision(prec) << dur.count() / billions
-                       << " seconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / billions << " seconds";
             } else if (dur.count() > millions) {
-                buffer << name << message << std::setprecision(prec) << dur.count() / millions
-                       << " milliseconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / millions << " milliseconds";
             } else {
-                buffer << name << message << std::setprecision(prec) << dur.count() / 1'000
-                       << " microseconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / 1'000 << " microseconds";
             }
 
             return buffer.str();
