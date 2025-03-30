@@ -39,13 +39,13 @@ do
             shift
         ;;
         format)
-            clang-format -i include/app/*.hpp src/*.cpp
+            clang-format -i include/perftimer/*.hpp src/*.cpp
             git status -s
 
             shift
         ;;
         clean)
-            (cd build && make clean && /bin/rm -f datalogger-unit)
+            (cd build && make clean)
         
             shift
         ;;
@@ -55,7 +55,7 @@ do
             shift
         ;;
         watch)
-            watchexec -c -w src/ -w include/ -w tests/ -e h,hpp,cpp ./mk build unit
+            watchexec -c -w src/ -w include/ -e h,hpp,cpp ./mk build run
 
             exit 0
         ;;
