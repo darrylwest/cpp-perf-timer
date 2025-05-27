@@ -4,7 +4,7 @@ A general-purpose performance timer implemented as a header-only library in C++.
 
 ## Version
 
-Current version: **0.6.4**
+Current version: **0.7.1**
 
 ## Features
 
@@ -50,7 +50,13 @@ auto duration = timer.get_duration();
 ### Showing the Duration
 
 ```cpp
-timer.show_duration();
+timer.show_duration(); // goes to std::cout
+```
+
+or like this
+
+```cpp
+spdlog::info("{} duration {0.6f} seconds", timer.get_name(), timer.get_seconds()");
 ```
 
 ### Logging Comments
@@ -90,4 +96,4 @@ int main() {
 
 ```
 
-###### 2025-03-26 | dpw
+###### 2025-05-26 | dpw
