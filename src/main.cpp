@@ -42,7 +42,8 @@ int main() {
 
     display_thread.join();
 
-    std::cout << timer.get_name() << " duration: " << std::setprecision(6) << timer.get_seconds() << " seconds.\n";
+    std::cout << timer.get_name() << " duration: " << std::setprecision(6) << timer.get_seconds()
+              << " seconds.\n";
 
     return 0;
 }
