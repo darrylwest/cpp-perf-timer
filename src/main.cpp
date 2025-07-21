@@ -13,6 +13,18 @@ using namespace std::literals;  // For convenient time literals like 1s
 // Global atomic boolean to signal the display thread to stop
 std::atomic<bool> running = true;
 
+constexpr std::string_view help_text = R"(
+Usage: timeit [start executable|help]
+    start:  start the timer and run the executable
+    helo:   this help file
+
+With no args the timer starts on the console.
+)";
+
+void show_help() {
+    std::cout << help_text << '\n';
+}
+
 void display_elapsed_time() {
     auto start_time = high_resolution_clock::now();
     while (running) {
@@ -25,7 +37,17 @@ void display_elapsed_time() {
     std::cout << "\rElapsed time display stopped.        \n";  // Clear the last output
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc > 1) {
+        if (argc > 2) {
+            std::cout << argv[1] << " " << argv[2] << '\n';
+            return 0;
+        }
+
+        show_help();
+        return 0;
+    }
+
     perftimer::PerfTimer timer("Stopwatch Timer");
 
     std::cout << "Press Enter to stop the timer\n";
