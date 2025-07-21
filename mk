@@ -34,7 +34,7 @@ do
             shift
         ;;
         run)
-            ./build/PerfTimerDemo
+            ./build/PerfTimerDemo help
 
             shift
         ;;

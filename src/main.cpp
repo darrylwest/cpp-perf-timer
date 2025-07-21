@@ -15,8 +15,8 @@ std::atomic<bool> running = true;
 
 constexpr std::string_view help_text = R"(
 Usage: timeit [start executable|help]
-    start:  start the timer and run the executable
-    helo:   this help file
+    start:  start the timer and run the executable; report the time when complete.
+    help:   show this help file.
 
 With no args the timer starts on the console.
 )";
