@@ -38,34 +38,33 @@ void display_elapsed_time() {
 }
 
 int main(int argc, char *argv[]) {
+    perftimer::PerfTimer timer("Stopwatch Timer");
     if (argc > 1) {
         if (argc > 2) {
             std::cout << argv[1] << " " << argv[2] << '\n';
-            return 0;
+            timer.start();
+            std::system(argv[2]);
+            timer.stop();
+        } else {
+            show_help();
         }
+    } else {
+        std::cout << "Press Enter to stop the timer\n";
 
-        show_help();
-        return 0;
+        timer.start();
+
+        std::thread display_thread(display_elapsed_time);
+
+        std::string line;
+        std::getline(std::cin, line);
+
+        running = false;
+        timer.stop();
+
+        display_thread.join();
     }
 
-    perftimer::PerfTimer timer("Stopwatch Timer");
-
-    std::cout << "Press Enter to stop the timer\n";
-
-    timer.start();
-
-    std::thread display_thread(display_elapsed_time);
-
-    std::string line;
-    std::getline(std::cin, line);
-
-    running = false;
-    timer.stop();
-
-    display_thread.join();
-
-    std::cout << timer.get_name() << " duration: " << std::setprecision(6) << timer.get_seconds()
-              << " seconds.\n";
+    std::cout << timer.get_name() << " duration: " << std::setprecision(6) << timer.get_seconds() << " seconds.\n";
 
     return 0;
 }
