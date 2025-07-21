@@ -15,13 +15,16 @@ std::atomic<bool> running = true;
 
 constexpr std::string_view help_text = R"(
 Usage: timeit [start executable|help]
-    start:  start the timer and run the executable; report the time when complete.
-    help:   show this help file.
 
-With no args the timer starts on the console.
+  start:  start the timer and run the executable; report the time when complete.
+  help:   show this help file.
+
+  With no args the timer starts on the console.
+
 )";
 
 void show_help() {
+    std::cout << "Version: " << perftimer::VERSION << '\n';
     std::cout << help_text << '\n';
 }
 
@@ -38,13 +41,14 @@ void display_elapsed_time() {
 }
 
 int main(int argc, char *argv[]) {
-    perftimer::PerfTimer timer("Stopwatch Timer");
+    perftimer::PerfTimer timer("PerfTimer");
     if (argc > 1) {
         if (argc > 2) {
             std::cout << argv[1] << " " << argv[2] << '\n';
             timer.start();
             std::system(argv[2]);
             timer.stop();
+            std::cout << "--------------- " << argv[2] << " completed..." << '\n';
             timer.show_duration();
         } else {
             show_help();

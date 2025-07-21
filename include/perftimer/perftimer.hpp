@@ -11,7 +11,7 @@
 #include <string>
 
 namespace perftimer {
-    constexpr auto VERSION = "0.8.1";
+    constexpr auto VERSION = "0.8.2";
 
     using Clock = std::chrono::high_resolution_clock;
     using TimePoint = std::chrono::time_point<Clock>;

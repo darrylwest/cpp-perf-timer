@@ -33,6 +33,11 @@ do
 
             shift
         ;;
+        test)
+            ./build/PerfTimerDemo start 'ls -la'
+
+            shift
+        ;;
         run)
             ./build/PerfTimerDemo help
 
