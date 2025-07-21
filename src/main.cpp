@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
             timer.start();
             std::system(argv[2]);
             timer.stop();
+            timer.show_duration();
         } else {
             show_help();
         }
