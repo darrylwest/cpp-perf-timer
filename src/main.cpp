@@ -6,9 +6,11 @@
 #include <perftimer/perftimer.hpp>
 #include <string>
 #include <thread>
+#include <vendor/ansi_colors.hpp>
 
 using namespace std::chrono;
 using namespace std::literals;  // For convenient time literals like 1s
+using namespace colors;
 
 // Global atomic boolean to signal the display thread to stop
 std::atomic<bool> running = true;
@@ -26,8 +28,8 @@ Example Use: perf-timer find ./ -type f -print
 )";
 
 void show_help() {
-    std::cout << "Version: " << perftimer::VERSION << '\n';
-    std::cout << help_text << '\n';
+    std::cout << green << "Version: " << perftimer::VERSION << reset << '\n';
+    std::cout << yellow << help_text << reset << '\n';
 }
 
 void display_elapsed_time() {
@@ -36,14 +38,16 @@ void display_elapsed_time() {
         auto now = high_resolution_clock::now();
         auto elapsed = duration_cast<milliseconds>(now - start_time);
         // Use \r to return the cursor to the beginning of the line for in-place update
-        std::cout << "\rElapsed seconds: " << float(elapsed.count()) / 1000.0 << std::flush;
+        std::cout << green << "\rElapsed seconds: " << float(elapsed.count()) / 1000.0 << reset
+                  << std::flush;
         std::this_thread::sleep_for(0.1s);  // Update every second
     }
-    std::cout << "\rElapsed time display stopped.        \n";  // Clear the last output
+    std::cout << yellow << "\rElapsed time display stopped.\n"
+              << reset << '\n';  // Clear the last output
 }
 
 int main(int argc, char *argv[]) {
-    perftimer::PerfTimer timer("PerfTimer");
+    perftimer::PerfTimer timer("perf");
 
     if (argc > 1) {
         if (argv[1] == std::string_view("help") || argv[1] == std::string_view("--help")) {
@@ -57,12 +61,13 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        std::cout << argv[1] << '\n';
-            timer.start();
-            std::system(cmd.c_str());
-            timer.stop();
-            std::cout << "--------------- " << argv[1] << " completed..." << '\n';
-            timer.show_duration();
+        std::cout << bright::cyan << cmd << reset << "\n\n";
+        timer.start();
+        std::system(cmd.c_str());
+        timer.stop();
+        std::cout << '\n'
+                  << bright::cyan << "--------------- " << cmd << " completed..." << reset << '\n';
+        timer.show_duration();
 
     } else {
         std::cout << "Press Enter to stop the timer\n";
@@ -80,7 +85,8 @@ int main(int argc, char *argv[]) {
         display_thread.join();
     }
 
-    std::cout << timer.get_name() << " duration: " << std::setprecision(6) << timer.get_seconds() << " seconds.\n";
+    std::cout << timer.get_name() << ": duration: " << std::setprecision(6) << timer.get_seconds()
+              << " seconds.\n";
 
     return 0;
 }
