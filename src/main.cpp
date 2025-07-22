@@ -14,10 +14,10 @@ using namespace std::literals;  // For convenient time literals like 1s
 std::atomic<bool> running = true;
 
 constexpr std::string_view help_text = R"(
-Usage: timeit [start executable|help]
+Usage: timeit [run executable|help]
 
-  start:  start the timer and run the executable; report the time when complete.
-  help:   show this help file.
+  executable:  start the timer and run the executable; report the time when complete.
+  help      :   show this help file.
 
   With no args the timer starts on the console.
 
@@ -42,17 +42,20 @@ void display_elapsed_time() {
 
 int main(int argc, char *argv[]) {
     perftimer::PerfTimer timer("PerfTimer");
+
     if (argc > 1) {
-        if (argc > 2) {
-            std::cout << argv[1] << " " << argv[2] << '\n';
-            timer.start();
-            std::system(argv[2]);
-            timer.stop();
-            std::cout << "--------------- " << argv[2] << " completed..." << '\n';
-            timer.show_duration();
-        } else {
+        if (argv[1] == std::string_view("help") || argv[1] == std::string_view("--help")) {
             show_help();
+            return 0;
         }
+
+        std::cout << argv[1] << '\n';
+            timer.start();
+            std::system(argv[1]);
+            timer.stop();
+            std::cout << "--------------- " << argv[1] << " completed..." << '\n';
+            timer.show_duration();
+
     } else {
         std::cout << "Press Enter to stop the timer\n";
 
