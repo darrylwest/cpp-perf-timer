@@ -19,7 +19,9 @@ Usage: timeit [run executable|help]
   executable:  start the timer and run the executable; report the time when complete.
   help      :   show this help file.
 
-  With no args the timer starts on the console.
+With no args the timer starts on the console.
+
+Example Use: timeit find ./ -type f -print
 
 )";
 

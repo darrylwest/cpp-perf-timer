@@ -39,7 +39,8 @@ do
             shift
         ;;
         run)
-            ./build/PerfTimerDemo help
+            ./build/perf-time help
+            ./build/perf-time 'ls -l'
 
             shift
         ;;
