@@ -14,14 +14,14 @@ using namespace std::literals;  // For convenient time literals like 1s
 std::atomic<bool> running = true;
 
 constexpr std::string_view help_text = R"(
-Usage: timeit [run executable|help]
+Usage: perf-timer [run executable|help]
 
   executable:  start the timer and run the executable; report the time when complete.
   help      :   show this help file.
 
 With no args the timer starts on the console.
 
-Example Use: timeit find ./ -type f -print
+Example Use: perf-timer find ./ -type f -print
 
 )";
 
@@ -50,10 +50,16 @@ int main(int argc, char *argv[]) {
             show_help();
             return 0;
         }
+        std::string cmd = argv[1];
+        if (argc > 2) {
+            for (auto i = 2; i < argc; i++) {
+                cmd.append(" ").append(argv[i]);
+            }
+        }
 
         std::cout << argv[1] << '\n';
             timer.start();
-            std::system(argv[1]);
+            std::system(cmd.c_str());
             timer.stop();
             std::cout << "--------------- " << argv[1] << " completed..." << '\n';
             timer.show_duration();

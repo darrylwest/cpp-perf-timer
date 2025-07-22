@@ -12,9 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories(include)
 
 # Add the executable
-add_executable(perf-time src/main.cpp)
+add_executable(perf-timer src/main.cpp)
 
 # Optionally, you can set the output directory for the executable
-set_target_properties(perf-time PROPERTIES
+set_target_properties(perf-timer PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/
 )

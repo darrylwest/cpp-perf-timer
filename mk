@@ -34,13 +34,13 @@ do
             shift
         ;;
         test)
-            ./build/PerfTimerDemo start 'ls -la'
+            ./build/perf-timer ls -la
 
             shift
         ;;
         run)
-            ./build/perf-time help
-            ./build/perf-time 'ls -l'
+            ./build/perf-timer help
+            ./build/perf-timer ls -l ../perf-timer
 
             shift
         ;;
